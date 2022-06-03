@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CommandHandlers\hz0ybiwl.yso~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tradies.Core\TradiesJob.Core.csproj" />
+    <ProjectReference Include="..\TradiesJob.Public\TradiesJob.Public.csproj" />
+  </ItemGroup>
+
+</Project>
