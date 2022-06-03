@@ -26,7 +26,8 @@ namespace TradiesJob.Public.Queries {
 		public string Name { get; set; } = string.Empty;
 		public string MobileNumber { get; set; } = string.Empty;
 		public Status Status { get; set; } = Status.Scheduled;
-		public int PageNumber { get; set; } = 1;
+        public string OrderBy{ get; set; }
+        public int PageNumber { get; set; } = 1;
 		public int ItemsPerPage { get; set; } = 20;
 	}
 }

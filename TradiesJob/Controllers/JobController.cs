@@ -19,6 +19,7 @@
 #region Namespace
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TradiesJob.Core.Cqrs;
 using TradiesJob.Public.Commands;
@@ -39,6 +40,11 @@ namespace TradiesJob.Api.Controllers {
         [HttpGet("search")]
         public async Task<IActionResult> search([FromQuery] JobSearchQuery query) {
             var appResult = await _messages.Dispatch<List<JobSearchResult>>(query);
+            if(query.OrderBy == "Mobile") {
+                appResult = appResult.OrderBy(i => i.MobileNumber).ToList();
+            } else if (query.OrderBy == "Name") {
+                appResult = appResult.OrderBy(i => i.Name).ToList();
+            }
             return Ok(appResult);
         }
 

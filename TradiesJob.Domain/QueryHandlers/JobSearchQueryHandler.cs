@@ -47,16 +47,16 @@ namespace TradiesJob.Domain.QueryHandlers {
                 ParameterName = DBParamConstant.NAME, SqlDbType = SqlDbType.NVarChar, Value = query.Name
             });
             param.Add(new SqlParameter() {
-                ParameterName = DBParamConstant.MOBILE_NUMBER, SqlDbType = SqlDbType.NVarChar, Value = query.MobileNumber
+                ParameterName = DBParamConstant.MOBILE_NUMBER, SqlDbType = SqlDbType.VarChar, Value = query.MobileNumber
             });
             param.Add(new SqlParameter() {
-                ParameterName = DBParamConstant.STATUS, SqlDbType = SqlDbType.NVarChar, Value = query.Status
+                ParameterName = DBParamConstant.STATUS, SqlDbType = SqlDbType.Int, Value = query.Status
             });
             param.Add(new SqlParameter() {
-                ParameterName = DBParamConstant.CURRENT_PAGE, SqlDbType = SqlDbType.NVarChar, Value = query.PageNumber
+                ParameterName = DBParamConstant.CURRENT_PAGE, SqlDbType = SqlDbType.Int, Value = query.PageNumber
             });
             param.Add(new SqlParameter() {
-                ParameterName = DBParamConstant.PAGE_SIZE, SqlDbType = SqlDbType.NVarChar, Value = query.ItemsPerPage
+                ParameterName = DBParamConstant.PAGE_SIZE, SqlDbType = SqlDbType.Int, Value = query.ItemsPerPage
             });
 
             using (var data = await _database.ExecuteDataReaderAsync(SPConstant.SEARCH_JOB, param)) {
