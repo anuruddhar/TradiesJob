@@ -37,6 +37,7 @@ namespace TradiesJob.Api.Controllers {
             _messages = messages;
         }
 
+        // http://localhost:61281/api/job/search?Name=Create&MobileNumber=84816894&Status=0&PageNumber=1&ItemsPerPage=10
         [HttpGet("search")]
         public async Task<IActionResult> search([FromQuery] JobSearchQuery query) {
             if(query== null) {
@@ -54,6 +55,7 @@ namespace TradiesJob.Api.Controllers {
             return Ok(appResult);
         }
 
+        // http://localhost:61281/api/job/4d60a220-cc93-4f3a-8ed3-5b986619e158
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> get(string id) {
             if (id == null) {
@@ -68,7 +70,17 @@ namespace TradiesJob.Api.Controllers {
             return Ok(appResult);
         }
 
-
+        /*
+        http://localhost:61281/api/job
+        {
+	        "JobGuid":"d75d0c78-c4ce-44a8-8df1-2e4e7c07ee8f",
+	        "Name":"Test",
+	        "MobileNumber":"+94713045780",
+            "Status":0,
+            "CreatedUserId":"Test",
+            "CreatedDateTime":"2022-06-04"
+        }
+        */
         [HttpPost]
         public async Task<IActionResult> save([FromBody] JobCreateCommand command) {
             if (command == null) {
@@ -83,7 +95,8 @@ namespace TradiesJob.Api.Controllers {
             result.Name = command.Name;
             result.MobileNumber = command.MobileNumber;
             result.Status = command.Status;
-            return CreatedAtRoute("Get", result);
+
+            return CreatedAtRoute("Get", routeValues: new { id = command.JobGuid }, value: result);
         }
 
         [HttpPut]

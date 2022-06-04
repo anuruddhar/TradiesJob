@@ -31,14 +31,19 @@ namespace TradiesJob.Core.Cqrs {
         }
 
         public async Task<T> Dispatch<T>(ICommand command) {
-            Type type = typeof(ICommandHandler<,>);
-            Type[] typeArgs = { command.GetType() };
-            Type handlerType = type.MakeGenericType(typeArgs);
+            try {
+                Type type = typeof(ICommandHandler<,>);
+                Type[] typeArgs = { command.GetType(), typeof(T) };
+                Type handlerType = type.MakeGenericType(typeArgs);
 
-            dynamic handler = _provider.GetService(handlerType);
-            T result = await handler.Handle((dynamic)command);
+                dynamic handler = _provider.GetService(handlerType);
+                T result = await handler.Handle((dynamic)command);
 
-            return result;
+                return result;
+            } catch (Exception ex) {
+                throw ex;
+            }
+
         }
 
         public async Task<T> Dispatch<T>(IQuery query) {
