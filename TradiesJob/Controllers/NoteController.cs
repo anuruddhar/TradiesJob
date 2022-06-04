@@ -36,14 +36,26 @@ namespace TradiesJob.Api.Controllers {
 
         [HttpPost]
         public async Task<IActionResult> save([FromBody] NoteCreateCommand command) {
+            if (command == null) {
+                return BadRequest();
+            }
             var appResult = await _messages.Dispatch<AppResult>(command);
-            return Ok(appResult);
+            if (appResult == null || !appResult.Success) {
+                return NotFound();
+            }
+            return CreatedAtRoute("", "");
         }
 
         [HttpPut]
         public async Task<IActionResult> update([FromBody] NoteUpdateCommand command) {
+            if (command == null) {
+                return BadRequest();
+            }
             var appResult = await _messages.Dispatch<AppResult>(command);
-            return Ok(appResult);
+            if (appResult == null || !appResult.Success) {
+                return NotFound();
+            }
+            return NoContent();
         }
 
     }
